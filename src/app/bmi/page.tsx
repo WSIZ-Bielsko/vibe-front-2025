@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { NumberInput, Button, Container, Title, Text, Slider } from '@mantine/core';
+import {useState} from 'react';
+import {NumberInput, Button, Container, Title, Text, Slider} from '@mantine/core';
 
 export default function BMIPage() {
     const [weight, setWeight] = useState<number | string>('');
@@ -23,12 +23,12 @@ export default function BMIPage() {
     };
 
     const bmiMarks = [
-        { value: 15, label: '15' },
-        { value: 18.5, label: '18.5' },
-        { value: 25, label: '25' },
-        { value: 30, label: '30' },
-        { value: 35, label: '35' },
-        { value: 40, label: '40' },
+        {value: 15, label: '15'},
+        {value: 18.5, label: '18.5'},
+        {value: 25, label: '25'},
+        {value: 30, label: '30'},
+        {value: 35, label: '35'},
+        {value: 40, label: '40'},
     ];
 
     return (
@@ -71,10 +71,14 @@ export default function BMIPage() {
                         marks={bmiMarks}
                         disabled
                         color={
-                            bmi < 18.5 ? 'blue' :
-                                bmi < 25 ? 'green' :
-                                    bmi < 30 ? 'yellow' :
-                                        'red'
+                            bmi < 17 ? 'grape' :          // Severe thinness
+                                bmi < 18.5 ? 'blue' :         // Underweight
+                                    bmi < 25 ? 'green' :          // Normal weight
+                                        bmi < 30 ? 'yellow' :         // Overweight
+                                            bmi < 35 ? 'orange' :         // Obesity Class I
+                                                bmi < 40 ? 'red' :            // Obesity Class II
+                                                    bmi < 45 ? 'pink' :           // Obesity Class III (40-44.9)
+                                                        'dark'                         // Extreme Obesity (≥45)
                         }
                         label={(val) => val.toFixed(1)}
                     />

@@ -3,7 +3,9 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
     const session = request.cookies.get('session')?.value;
-    const isProtectedRoute = request.nextUrl.pathname.startsWith('/bmi') ||
+    const isProtectedRoute =
+        request.nextUrl.pathname.startsWith('/bmi') ||
+        request.nextUrl.pathname.startsWith('/drive') ||
         request.nextUrl.pathname === '/';
 
     if (isProtectedRoute && !session) {
@@ -14,5 +16,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/', '/bmi'],
+    matcher: ['/', '/bmi', '/drive'],
 };

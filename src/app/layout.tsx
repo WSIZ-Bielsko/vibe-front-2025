@@ -1,11 +1,17 @@
 'use client';
 
 import '@mantine/core/styles.css';
-import { ColorSchemeScript, MantineProvider, mantineHtmlProps, AppShell } from '@mantine/core';
-import { Navbar } from './components/Navbar';
-import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { checkSession } from './api/actions';
+import {ColorSchemeScript, MantineProvider, mantineHtmlProps, AppShell} from '@mantine/core';
+import {Navbar} from './components/Navbar';
+import {usePathname} from 'next/navigation';
+import {useEffect, useState} from 'react';
+import {checkSession} from './api/actions';
+
+import '@mantine/notifications/styles.css';
+import {Notifications} from "@mantine/notifications";
+
+import {TanStackProvider} from './providers/TanStackProvider';
+
 
 export default function RootLayout({
                                        children,
@@ -22,21 +28,26 @@ export default function RootLayout({
     return (
         <html lang="en" {...mantineHtmlProps}>
         <head>
-            <ColorSchemeScript defaultColorScheme="dark" />
+            <ColorSchemeScript defaultColorScheme="dark"/>
         </head>
         <body>
         <MantineProvider defaultColorScheme="dark">
-            <AppShell
-                header={{ height: 60, collapsed: !isLoggedIn, offset: true }}
-                padding="md"
-            >
-                <AppShell.Header>
-                    <Navbar />
-                </AppShell.Header>
-                <AppShell.Main>
-                    {children}
-                </AppShell.Main>
-            </AppShell>
+            <TanStackProvider>
+
+                <Notifications/>
+
+                <AppShell
+                    header={{height: 60, collapsed: !isLoggedIn, offset: true}}
+                    padding="md"
+                >
+                    <AppShell.Header>
+                        <Navbar/>
+                    </AppShell.Header>
+                    <AppShell.Main>
+                        {children}
+                    </AppShell.Main>
+                </AppShell>
+            </TanStackProvider>
         </MantineProvider>
         </body>
         </html>
